@@ -51,10 +51,10 @@ docs/*
 cli_test/*
 lcd_test/*
 networks/*
-contrib/*
+
 CHANGELOG.MD
 ._*
-sims.mk
+
 docker-compose.yml
 Dockerfile
 dredd.yml
