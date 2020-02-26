@@ -48,7 +48,7 @@ go version go1.13.5 linux/amd64
 Start by clone this repository. If you are here, you most likely have git installed already, otherwise just run:
 
 ```
-sudo apt-get install git
+sudo apt install git
 ```
 
 And now you can clone the repository as follows:
