@@ -7,7 +7,6 @@ This repository hosts `ki-tools`, a set of tools that allow to deploy and run Ki
 
 
 ## Quick Start
-A fresh install of Ubuntu 18.04 is recommended for this install.
 
 ### Install Golang
 To install Go, visit the Go download page and copy the link of the latest Go release for Linux systems:
@@ -28,7 +27,12 @@ Finally, export the Go paths like so:
 ```
 GOPATH=/usr/local/go
 PATH=$GOPATH/bin:$PATH
+mkdir -p $HOME/go/bin
+echo "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.bash_profile
+source ~/.bash_profile
 ```
+
+
 
 To test the Go installation,  use the `version` command to check the downloaded version as follows :
 
