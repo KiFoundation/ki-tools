@@ -32,8 +32,6 @@ echo "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-
-
 To test the Go installation,  use the `version` command to check the downloaded version as follows :
 
 ```
@@ -47,7 +45,13 @@ go version go1.13.5 linux/amd64
 ```
 
 ### Install ki-tools
-Start by clone this repository:
+Start by clone this repository. If you are here, you most likely have git installed already, otherwise just run:
+
+```
+sudo apt-get install git
+```
+
+And now you can clone the repository as follows:
 ```
 git clone https://github.com/KiFoundation/ki-tools.git
 ```
