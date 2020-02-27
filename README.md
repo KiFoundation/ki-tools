@@ -59,6 +59,7 @@ git clone https://github.com/KiFoundation/ki-tools.git
 If your are starting with a clean ubuntu install you might need to install the `build-essential` package:
 
 ```
+sudo apt update
 sudo apt install build-essential
 ```
 
@@ -75,8 +76,8 @@ kid version --long
 
 ## Deploy a Kichain node
 Now that you have the `ki-tools` installed you can deploy and run a Kichain node. To do so:
-- Check the current version of the genesis file here.
-- And follow the dedicated tutorial here
+- Check the current version of the genesis file [here](https://github.com/KiFoundation/ki-networks/blob/v0.1/Testnet/Kichain-t/genesis.json).
+- And follow the dedicated tutorial [here](https://github.com/KiFoundation/ki-networks/tree/v0.1/Testnet).
 
 ## Disclaimer
 The `ki-tools` is a modified clone of the `gaia` project. More about the latter can be found [here](https://github.com/cosmos/gaia).
