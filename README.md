@@ -66,7 +66,9 @@ sudo apt install build-essential
 Finally, navigate to the repository folder and install the tools as follows:
 
 ```
-cd ki-tools && make install
+cd ki-tools
+git checkout tags/v0.1
+make install
 ```
 
 To test the installation, check the downloaded version as follows :
