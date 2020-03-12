@@ -14,7 +14,8 @@ import (
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
-	gaia "github.com/cosmos/gaia/app"
+	// gaia "github.com/cosmos/gaia/app"
+	"github.com/KiFoundation/ki-tools/app"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
@@ -75,14 +76,14 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:          "gaiadebug",
-	Short:        "Gaia debug tool",
+	Use:          "kidebug",
+	Short:        "Ki debug tool",
 	SilenceUsage: true,
 }
 
 var txCmd = &cobra.Command{
 	Use:   "tx",
-	Short: "Decode a gaia tx from hex or base64",
+	Short: "Decode a ki tx from hex or base64",
 	RunE:  runTxCmd,
 }
 
