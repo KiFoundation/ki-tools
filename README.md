@@ -67,7 +67,6 @@ Finally, navigate to the repository folder and install the tools as follows:
 
 ```
 cd ki-tools
-git checkout tags/v0.1
 make install
 ```
 
