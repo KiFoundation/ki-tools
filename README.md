@@ -77,7 +77,7 @@ kid version --long
 
 ## Deploy a Kichain node
 Now that you have the `ki-tools` installed you can deploy and run a Kichain node. To do so:
-- Check the current version of the genesis file [here](https://github.com/KiFoundation/ki-networks/blob/v0.1/Testnet/Kichain-t/genesis.json).
+- Check the current version of the genesis file [here](https://github.com/KiFoundation/ki-networks/blob/v0.1/Testnet/KiChain-t-1/genesis.json).
 - And follow the dedicated tutorial [here](https://github.com/KiFoundation/ki-networks/tree/v0.1/Testnet).
 
 ## Disclaimer
