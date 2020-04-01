@@ -15,7 +15,7 @@ To install Go, visit the Go download page and copy the link of the latest Go rel
 https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
 ```
 
-Downloading and unzip the archive file as follows:
+Download and unzip the archive file as follows:
 
 ```
 wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
