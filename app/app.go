@@ -33,11 +33,11 @@ import (
 const appName = "GaiaApp"
 
 var (
-	// default home directories for gaiacli
-	DefaultCLIHome = os.ExpandEnv("$HOME/.gaiacli")
+	// default home directories for kicli
+	DefaultCLIHome = os.ExpandEnv("$HOME/.kicli")
 
-	// default home directories for gaiad
-	DefaultNodeHome = os.ExpandEnv("$HOME/.gaiad")
+	// default home directories for kid
+	DefaultNodeHome = os.ExpandEnv("$HOME/.kid")
 
 	// The module BasicManager is in charge of setting up basic,
 	// non-dependant module elements, such as codec registration
