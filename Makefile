@@ -45,7 +45,7 @@ whitespace += $(whitespace)
 comma := ,
 build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
-network := Testnet
+network := Mainnet
 
 # process linker flags
 

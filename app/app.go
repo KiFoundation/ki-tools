@@ -34,10 +34,10 @@ const appName = "GaiaApp"
 
 var (
 	// default home directories for kicli
-	DefaultCLIHome = os.ExpandEnv("$HOME/.tkicli")
+	DefaultCLIHome = os.ExpandEnv("$HOME/.kicli")
 
 	// default home directories for kid
-	DefaultNodeHome = os.ExpandEnv("$HOME/.tkid")
+	DefaultNodeHome = os.ExpandEnv("$HOME/.kid")
 
 	// The module BasicManager is in charge of setting up basic,
 	// non-dependant module elements, such as codec registration

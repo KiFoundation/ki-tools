@@ -31,7 +31,7 @@ const(
 	flagInvCheckPeriod = "inv-check-period"
 
 
-	Bech32MainPrefix = "tki"
+	Bech32MainPrefix = "ki"
 
 		// Atom in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 		// CoinType = 118
