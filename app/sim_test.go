@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	gaia "github.com/cosmos/gaia/v4/app"
+	app "github.com/KiFoundation/ki-tools/app"
 
-	"github.com/cosmos/gaia/v4/app/helpers"
+	"github.com/KiFoundation/ki-tools/app/helpers"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/log"
 	"github.com/tendermint/tendermint/libs/rand"
@@ -41,7 +41,7 @@ func BenchmarkFullAppSimulation(b *testing.B) {
 		}
 	}()
 
-	app := gaia.NewGaiaApp(logger, db, nil, true, map[int64]bool{}, gaia.DefaultNodeHome, simapp.FlagPeriodValue, gaia.MakeEncodingConfig(), simapp.EmptyAppOptions{}, interBlockCacheOpt())
+	app := kitools.NewKitoolsApp(logger, db, nil, true, map[int64]bool{}, kitools.DefaultNodeHome, simapp.FlagPeriodValue, kitools.MakeEncodingConfig(), simapp.EmptyAppOptions{}, interBlockCacheOpt())
 
 	// Run randomized simulation:w
 	_, simParams, simErr := simulation.SimulateFromSeed(
@@ -106,7 +106,7 @@ func TestAppStateDeterminism(t *testing.T) {
 			}
 
 			db := dbm.NewMemDB()
-			app := gaia.NewGaiaApp(logger, db, nil, true, map[int64]bool{}, gaia.DefaultNodeHome, simapp.FlagPeriodValue, gaia.MakeEncodingConfig(), simapp.EmptyAppOptions{}, interBlockCacheOpt())
+			app := kitools.NewKitoolsApp(logger, db, nil, true, map[int64]bool{}, kitools.DefaultNodeHome, simapp.FlagPeriodValue, kitools.MakeEncodingConfig(), simapp.EmptyAppOptions{}, interBlockCacheOpt())
 
 			fmt.Printf(
 				"running non-determinism simulation; seed %d: %d/%d, attempt: %d/%d\n",

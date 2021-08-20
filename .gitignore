@@ -9,6 +9,7 @@
 .idea
 
 # Build
+artifacts
 vendor
 build
 tools/bin/*
@@ -48,4 +49,3 @@ dependency-graph.png
 *.out
 *.synctex.gz
 contract_tests/*
-._Makefile

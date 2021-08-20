@@ -1,8 +1,8 @@
 package kitools
 
 import (
-	"github.com/cosmos/cosmos-sdk/std"
 	"github.com/KiFoundation/ki-tools/app/params"
+	"github.com/cosmos/cosmos-sdk/std"
 )
 
 // MakeEncodingConfig creates an EncodingConfig for testing
