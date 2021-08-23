@@ -13,7 +13,6 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/config"
 	"github.com/cosmos/cosmos-sdk/client/debug"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/keys"
@@ -47,20 +46,13 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		WithInput(os.Stdin).
 		WithAccountRetriever(types.AccountRetriever{}).
 		WithHomeDir(kitools.DefaultNodeHome).
-		WithViper("")
+		WithBroadcastMode(flags.BroadcastBlock)
 
 	rootCmd := &cobra.Command{
 		Use:   "kid",
 		Short: "KiChain app with IBC",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
-			initClientCtx = client.ReadHomeFlag(initClientCtx, cmd)
-
-			initClientCtx, err := config.ReadFromClientConfig(initClientCtx)
-			if err != nil {
-				return err
-			}
-
-			if err = client.SetCmdClientContextHandler(initClientCtx, cmd); err != nil {
+			if err := client.SetCmdClientContextHandler(initClientCtx, cmd); err != nil {
 				return err
 			}
 
@@ -89,7 +81,6 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig params.EncodingConfig) {
 		tmcli.NewCompletionCmd(rootCmd, true),
 		testnetCmd(kitools.ModuleBasics, banktypes.GenesisBalancesIterator{}),
 		debug.Cmd(),
-		config.Cmd(),
 	)
 
 	server.AddCommands(rootCmd, kitools.DefaultNodeHome, newApp, createSimappAndExport, addModuleInitFlags)
