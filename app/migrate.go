@@ -113,12 +113,12 @@ $ %s migrate /path/to/genesis.json --chain-id=cosmoshub-4 --genesis-time=2019-04
 				{
 					Description: "The native staking token of the Cosmos Hub.",
 					DenomUnits: []*bank.DenomUnit{
-						{Denom: "uatom", Exponent: uint32(0), Aliases: []string{"microatom"}},
-						{Denom: "matom", Exponent: uint32(3), Aliases: []string{"milliatom"}},
-						{Denom: "atom", Exponent: uint32(6), Aliases: []string{}},
+						{Denom: "utki", Exponent: uint32(0), Aliases: []string{"microtki"}},
+						{Denom: "mtki", Exponent: uint32(3), Aliases: []string{"millitki"}},
+						{Denom: "tki", Exponent: uint32(6), Aliases: []string{}},
 					},
-					Base:    "uatom",
-					Display: "atom",
+					Base:    "utki",
+					Display: "tki",
 				},
 			}
 			newGenState[bank.ModuleName] = clientCtx.JSONMarshaler.MustMarshalJSON(&bankGenesis)
