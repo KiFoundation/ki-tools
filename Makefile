@@ -63,7 +63,7 @@ network := Testnet-IBC
 
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=kitools \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=kid \
-		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION)-$(network) \ \
+		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION)-$(network) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
 			-X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
@@ -199,5 +199,3 @@ format:
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs gofmt -w -s
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs misspell -w
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/cosmos/cosmos-sdk
-
-
