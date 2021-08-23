@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	Bech32MainPrefix = "ki"
+	Bech32MainPrefix = "tki"
 
 	// PrefixAccount is the prefix for account keys
 	PrefixAccount = "acc"
