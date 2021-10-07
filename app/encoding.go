@@ -1,7 +1,7 @@
-package gaia
+package kitools
 
 import (
-	"github.com/cosmos/gaia/v5/app/params"
+	"github.com/KiFoundation/ki-tools/app/params"
 
 	"github.com/cosmos/cosmos-sdk/std"
 )

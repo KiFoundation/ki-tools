@@ -18,7 +18,6 @@ SDK_PACK := $(shell go list -m github.com/cosmos/cosmos-sdk | sed  's/ /\@/g')
 TM_VERSION := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::') # grab everything after the space in "github.com/tendermint/tendermint v0.34.7"
 DOCKER := $(shell which docker)
 BUILDDIR ?= $(CURDIR)/build
-TEST_DOCKER_REPO=jackzampolin/gaiatest
 
 export GO111MODULE = on
 
@@ -48,7 +47,7 @@ ifeq ($(LEDGER_ENABLED),true)
   endif
 endif
 
-ifeq (cleveldb,$(findstring cleveldb,$(GAIA_BUILD_OPTIONS)))
+ifeq (cleveldb,$(findstring cleveldb,$(KID_BUILD_OPTIONS)))
   build_tags += gcc cleveldb
 endif
 build_tags += $(BUILD_TAGS)
@@ -60,18 +59,19 @@ comma := ,
 build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
+network := Testnet-IBC
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=gaia \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=gaiad \
-		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=kitools \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=kid \
+		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION)-$(network) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
 			-X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
 
-ifeq (cleveldb,$(findstring cleveldb,$(GAIA_BUILD_OPTIONS)))
+ifeq (cleveldb,$(findstring cleveldb,$(KID_BUILD_OPTIONS)))
   ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
 endif
-ifeq (,$(findstring nostrip,$(GAIA_BUILD_OPTIONS)))
+ifeq (,$(findstring nostrip,$(KID_BUILD_OPTIONS)))
   ldflags += -w -s
 endif
 ldflags += $(LDFLAGS)
@@ -79,14 +79,14 @@ ldflags := $(strip $(ldflags))
 
 BUILD_FLAGS := -tags "$(build_tags)" -ldflags '$(ldflags)'
 # check for nostrip option
-ifeq (,$(findstring nostrip,$(GAIA_BUILD_OPTIONS)))
+ifeq (,$(findstring nostrip,$(KID_BUILD_OPTIONS)))
   BUILD_FLAGS += -trimpath
 endif
 
 #$(info $$BUILD_FLAGS is [$(BUILD_FLAGS)])
 
 # The below include contains the tools target.
-include contrib/devtools/Makefile
+# include contrib/devtools/Makefile
 
 ###############################################################################
 ###                              Documentation                              ###
@@ -108,7 +108,7 @@ build-reproducible: go.sum
 	$(DOCKER) rm latest-build || true
 	$(DOCKER) run --volume=$(CURDIR):/sources:ro \
         --env TARGET_PLATFORMS='linux/amd64 darwin/amd64 linux/arm64 windows/amd64' \
-        --env APP=gaiad \
+        --env APP=kid \
         --env VERSION=$(VERSION) \
         --env COMMIT=$(COMMIT) \
         --env LEDGER_ENABLED=$(LEDGER_ENABLED) \
@@ -133,7 +133,7 @@ go.sum: go.mod
 draw-deps:
 	@# requires brew install graphviz or apt-get install graphviz
 	go get github.com/RobotsAndPencils/goviz
-	@goviz -i ./cmd/gaiad -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i ./cmd/kid -d 2 | dot -Tpng -o dependency-graph.png
 
 clean:
 	rm -rf $(BUILDDIR)/ artifacts/
@@ -199,37 +199,3 @@ format:
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs gofmt -w -s
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs misspell -w
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/cosmos/cosmos-sdk
-
-###############################################################################
-###                                Localnet                                 ###
-###############################################################################
-
-build-docker-gaiadnode:
-	$(MAKE) -C networks/local
-
-# Run a 4-node testnet locally
-localnet-start: build-linux localnet-stop
-	@if ! [ -f build/node0/gaiad/config/genesis.json ]; then docker run --rm -v $(CURDIR)/build:/gaiad:Z tendermint/gaiadnode testnet --v 4 -o . --starting-ip-address 192.168.10.2 --keyring-backend=test ; fi
-	docker-compose up -d
-
-# Stop testnet
-localnet-stop:
-	docker-compose down
-
-test-docker:
-	@docker build -f contrib/Dockerfile.test -t ${TEST_DOCKER_REPO}:$(shell git rev-parse --short HEAD) .
-	@docker tag ${TEST_DOCKER_REPO}:$(shell git rev-parse --short HEAD) ${TEST_DOCKER_REPO}:$(shell git rev-parse --abbrev-ref HEAD | sed 's#/#_#g')
-	@docker tag ${TEST_DOCKER_REPO}:$(shell git rev-parse --short HEAD) ${TEST_DOCKER_REPO}:latest
-
-test-docker-push: test-docker
-	@docker push ${TEST_DOCKER_REPO}:$(shell git rev-parse --short HEAD)
-	@docker push ${TEST_DOCKER_REPO}:$(shell git rev-parse --abbrev-ref HEAD | sed 's#/#_#g')
-	@docker push ${TEST_DOCKER_REPO}:latest
-
-.PHONY: all build-linux install format lint \
-	go-mod-cache draw-deps clean build \
-	setup-transactions setup-contract-tests-data start-gaia run-lcd-contract-tests contract-tests \
-	test test-all test-build test-cover test-unit test-race \
-	benchmark \
-	build-docker-gaiadnode localnet-start localnet-stop \
-	docker-single-node

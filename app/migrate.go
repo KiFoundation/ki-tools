@@ -1,6 +1,6 @@
-package gaia
+package kitools
 
-//This file implements a genesis migration from cosmoshub-3 to cosmoshub-4. It migrates state from the modules in cosmoshub-3.
+//This file implements a genesis migration from kichain-1 to kichain-2. It migrates state from the modules in cosmoshub-3.
 //This file also implements setting an initial height from an upgrade.
 
 import (
@@ -34,7 +34,6 @@ const (
 	flagGenesisTime     = "genesis-time"
 	flagInitialHeight   = "initial-height"
 	flagReplacementKeys = "replacement-cons-keys"
-	flagNoProp29        = "no-prop-29"
 )
 
 // MigrateGenesisCmd returns a command to execute genesis state migration.
@@ -112,14 +111,14 @@ $ %s migrate /path/to/genesis.json --chain-id=cosmoshub-4 --genesis-time=2019-04
 
 			bankGenesis.DenomMetadata = []bank.Metadata{
 				{
-					Description: "The native staking token of the Cosmos Hub.",
+					Description: "The native staking token of the KiChain.",
 					DenomUnits: []*bank.DenomUnit{
-						{Denom: "uatom", Exponent: uint32(0), Aliases: []string{"microatom"}},
-						{Denom: "matom", Exponent: uint32(3), Aliases: []string{"milliatom"}},
-						{Denom: "atom", Exponent: uint32(6), Aliases: []string{}},
+						{Denom: "utki", Exponent: uint32(0), Aliases: []string{"microtki"}},
+						{Denom: "mtki", Exponent: uint32(3), Aliases: []string{"millitki"}},
+						{Denom: "tki", Exponent: uint32(6), Aliases: []string{}},
 					},
-					Base:    "uatom",
-					Display: "atom",
+					Base:    "utki",
+					Display: "tki",
 				},
 			}
 			newGenState[bank.ModuleName] = clientCtx.JSONMarshaler.MustMarshalJSON(&bankGenesis)
@@ -196,7 +195,6 @@ $ %s migrate /path/to/genesis.json --chain-id=cosmoshub-4 --genesis-time=2019-04
 	cmd.Flags().Int(flagInitialHeight, 0, "Set the starting height for the chain")
 	cmd.Flags().String(flagReplacementKeys, "", "Proviide a JSON file to replace the consensus keys of validators")
 	cmd.Flags().String(flags.FlagChainID, "", "override chain_id with this flag")
-	cmd.Flags().Bool(flagNoProp29, false, "Do not implement fund recovery from prop29")
 
 	return cmd
 }

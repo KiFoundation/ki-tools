@@ -49,5 +49,7 @@ dependency-graph.png
 *.out
 *.synctex.gz
 contract_tests/*
-OLD/*
+xOLD/*
 .github/workflows/*
+x5.0.7.IGNORED/*
+xTest/*

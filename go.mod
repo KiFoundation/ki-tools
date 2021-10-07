@@ -1,4 +1,4 @@
-module github.com/cosmos/gaia/v5
+module github.com/KiFoundation/ki-tools
 
 go 1.16
 

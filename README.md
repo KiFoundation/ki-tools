@@ -1,27 +1,78 @@
-# Gaia
-Gaia is the first implementation of the Cosmos Hub, built using the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk).  Gaia and other Cosmos Hubs allow fully sovereign blockchains to interact with one another using a protocol called [IBC](https://github.com/cosmos/ics/tree/master/ibc) that enables Inter-Blockchain Communication.
+<p align="right">
+    <img width=150px src="https://wallet-testnet.blockchain.ki/static/img/icons/ki-chain.png" />
+</p>
 
-[![codecov](https://codecov.io/gh/cosmos/gaia/branch/master/graph/badge.svg)](https://codecov.io/gh/cosmos/gaia)
-[![Go Report Card](https://goreportcard.com/badge/github.com/cosmos/gaia)](https://goreportcard.com/report/github.com/cosmos/gaia)
-[![license](https://img.shields.io/github/license/cosmos/gaia.svg)](https://github.com/cosmos/gaia/blob/main/LICENSE)
-[![LoC](https://tokei.rs/b1/github/cosmos/gaia)](https://github.com/cosmos/gaia)
-[![GolangCI](https://golangci.com/badges/github.com/cosmos/gaia.svg)](https://golangci.com/r/github.com/cosmos/gaia)
+# Ki Tools
+This repository hosts `ki-tools`, a set of tools that allow to deploy and run Kichain nodes.
 
-## Documentation
 
-Documentation for the Cosmos Hub lives at [hub.cosmos.network](https://hub.cosmos.network/main/hub-overview/overview.html).
+## Quick Start
 
-## Talk to us!
+### Install Golang
+To install Go, visit the Go download page and copy the link of the latest Go release for Linux systems:
 
-We have active, helpful communities on Twitter, Discord, and Telegram.
+```
+https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
+```
 
-* [Discord](https://discord.gg/vcExX9T)
-* [Twitter](https://twitter.com/cosmos)
-* [Telegram](https://t.me/cosmosproject)
+Download and unzip the archive file as follows:
 
-## Archives & Genesis
+```
+wget https://dl.google.com/go/go1.16.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
+```
 
-With each version of the Cosmos Hub, the chain is restarted from a new Genesis state. 
-Mainnet is currently running as `cosmoshub-4`. Archives of the state of `cosmoshub-1`, `cosmoshub-2`, and `cosmoshub-3` are available [here](./docs/resources/archives.md).
+Finally, export the Go paths like so:
 
-If you are looking for historical genesis files and other data [`cosmos/mainnet`](http://github.com/cosmos/mainnet) is an excellent resource.
+```
+mkdir -p $HOME/go/bin
+PATH=$PATH:/usr/local/go/bin
+echo "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+To test the Go installation,  use the `version` command to check the downloaded version as follows :
+
+```
+go version
+```
+
+This should output :
+
+```
+go version go1.16 linux/amd64
+```
+
+### Install ki-tools
+Start by clone this repository. If you are here, you most likely have git installed already, otherwise just run:
+
+```
+sudo apt install git
+```
+
+And now you can clone the repository as follows:
+```
+git clone https://github.com/KiFoundation/ki-tools.git
+```
+
+If your are starting with a clean ubuntu install you might need to install the `build-essential` package:
+
+```
+sudo apt update
+sudo apt install build-essential
+```
+
+Finally, navigate to the repository folder and install the tools as follows:
+
+```
+cd ki-tools
+make install
+```
+
+To test the installation, check the downloaded version as follows :
+```
+kid version --long
+```
+
+## Disclaimer
+The `ki-tools` is a modified clone of the `gaia` project. More about the latter can be found [here](https://github.com/cosmos/gaia).
