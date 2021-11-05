@@ -59,11 +59,11 @@ comma := ,
 build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
-network := Testnet-IBC
+network := Mainnet-IBC
 
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=kitools \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=kid \
-		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION)-$(network) \
+		  -X github.com/cosmos/cosmos-sdk/version.Version=$(network)-$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
 			-X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)

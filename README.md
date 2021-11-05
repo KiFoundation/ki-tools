@@ -9,13 +9,7 @@ This repository hosts `ki-tools`, a set of tools that allow to deploy and run Ki
 ## Quick Start
 
 ### Install Golang
-To install Go, visit the Go download page and copy the link of the latest Go release for Linux systems:
-
-```
-https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
-```
-
-Download and unzip the archive file as follows:
+To install Go, visit the Go download page and copy the link of the latest Go release for Linux systems, download and unzip the archive file as follows:
 
 ```
 wget https://dl.google.com/go/go1.16.linux-amd64.tar.gz
