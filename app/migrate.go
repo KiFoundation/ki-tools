@@ -113,12 +113,12 @@ $ %s migrate /path/to/genesis.json --chain-id=cosmoshub-4 --genesis-time=2019-04
 				{
 					Description: "The native staking token of the KiChain.",
 					DenomUnits: []*bank.DenomUnit{
-						{Denom: "uki", Exponent: uint32(0), Aliases: []string{"microki"}},
-						{Denom: "mki", Exponent: uint32(3), Aliases: []string{"milliki"}},
-						{Denom: "ki", Exponent: uint32(6), Aliases: []string{}},
+						{Denom: "uxki", Exponent: uint32(0), Aliases: []string{"microxki"}},
+						{Denom: "mxki", Exponent: uint32(3), Aliases: []string{"millixki"}},
+						{Denom: "xki", Exponent: uint32(6), Aliases: []string{}},
 					},
-					Base:    "uki",
-					Display: "ki",
+					Base:    "uxki",
+					Display: "xki",
 				},
 			}
 			newGenState[bank.ModuleName] = clientCtx.JSONMarshaler.MustMarshalJSON(&bankGenesis)
