@@ -1,0 +1,17 @@
+[Unit]
+Description=kid
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Restart=on-failure
+User=kid
+Group=kid
+PermissionsStartOnly=true
+ExecStart=/usr/bin/kid start
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target
+
