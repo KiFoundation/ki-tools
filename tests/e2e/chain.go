@@ -12,8 +12,8 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	tmrand "github.com/tendermint/tendermint/libs/rand"
 
-	kitools "github.com/kifoundation/ki-tools/app"
-	"github.com/kifoundation/ki-tools/app/params"
+	kitools "github.com/KiFoundation/ki-tools/app"
+	"github.com/KiFoundation/ki-tools/app/params"
 )
 
 const (

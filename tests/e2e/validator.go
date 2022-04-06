@@ -24,7 +24,7 @@ import (
 	"github.com/tendermint/tendermint/p2p"
 	"github.com/tendermint/tendermint/privval"
 
-	kitools "github.com/kifoundation/ki-tools/app"
+	kitools "github.com/KiFoundation/ki-tools/app"
 )
 
 type validator struct {

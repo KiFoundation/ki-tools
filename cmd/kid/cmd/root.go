@@ -30,8 +30,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	kitools "github.com/kifoundation/ki-tools/app"
-	"github.com/kifoundation/ki-tools/app/params"
+	kitools "github.com/KiFoundation/ki-tools/app"
+	"github.com/KiFoundation/ki-tools/app/params"
 )
 
 // NewRootCmd creates a new root command for simd. It is called once in the
@@ -49,8 +49,8 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		WithViper("")
 
 	rootCmd := &cobra.Command{
-		Use:   "kitoolsd",
-		Short: "Stargate Cosmos Hub App",
+		Use:   "kid",
+		Short: "KiChain App",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			initClientCtx, err := client.ReadPersistentCommandFlags(initClientCtx, cmd.Flags())
 			if err != nil {

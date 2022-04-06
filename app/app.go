@@ -104,7 +104,9 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	kitoolsappparams "github.com/kifoundation/ki-tools/app/params"
+	kitoolsappparams "github.com/KiFoundation/ki-tools/app/params"
+	"github.com/KiFoundation/ki-tools/app/address"
+
 	"github.com/strangelove-ventures/packet-forward-middleware/v2/router"
 	routerkeeper "github.com/strangelove-ventures/packet-forward-middleware/v2/router/keeper"
 	routertypes "github.com/strangelove-ventures/packet-forward-middleware/v2/router/types"
@@ -222,12 +224,13 @@ type KitoolsApp struct { // nolint: golint
 }
 
 func init() {
+	address.ConfigureBech32Prefix()
 	userHomeDir, err := os.UserHomeDir()
 	if err != nil {
 		stdlog.Println("Failed to get home dir %2", err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".kitools")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".kid")
 }
 
 // NewKitoolsApp returns a reference to an initialized Kitools.

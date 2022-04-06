@@ -1,4 +1,4 @@
-module github.com/kifoundation/ki-tools
+module github.com/KiFoundation/ki-tools
 
 go 1.18
 
