@@ -1,0 +1,15 @@
+init_config:
+
+instances:
+- name: ssh
+  search_string: ['ssh', 'sshd']
+  thresholds:
+    critical: [1, 5]
+- name: kid
+  search_string: ['kid']
+  thresholds:
+    critical: [1, 1]
+- name: kitoolscli
+  search_string: ['kitoolscli']
+  thresholds:
+    critical: [1, 1]

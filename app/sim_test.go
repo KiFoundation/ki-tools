@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	kitools "github.com/KiFoundation/ki-tools/app"
+	kitools "github.com/kifoundation/ki-tools/app"
 
-	"github.com/KiFoundation/ki-tools/app/helpers"
+	"github.com/kifoundation/ki-tools/app/helpers"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/log"
 	"github.com/tendermint/tendermint/libs/rand"

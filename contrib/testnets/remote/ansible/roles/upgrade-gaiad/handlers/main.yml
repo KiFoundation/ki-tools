@@ -1,0 +1,5 @@
+---
+
+- name: restart kid
+  service: name=kid state=restarted
+

@@ -1,0 +1,9 @@
+---
+
+- name: systemctl
+  systemd: name=kitoolscli enabled=yes daemon_reload=yes
+
+- name: restart kitoolscli
+  service: name=kitoolscli state=restarted
+
+

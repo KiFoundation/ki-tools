@@ -24,7 +24,7 @@ docs/node_modules
 # Data - ideally these don't exist
 baseapp/data/*
 client/lcd/keys/*
-cmd/gaiacli/statik/statik.go
+cmd/kitoolscli/statik/statik.go
 mytestnet
 
 # Testing
@@ -49,7 +49,3 @@ dependency-graph.png
 *.out
 *.synctex.gz
 contract_tests/*
-xOLD/*
-.github/workflows/*
-x5.0.7.IGNORED/*
-xTest/*
