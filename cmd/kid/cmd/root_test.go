@@ -5,8 +5,8 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	app "github.com/kifoundation/ki-tools/app"
-	"github.com/kifoundation/ki-tools/cmd/kid/cmd"
+	app "github.com/KiFoundation/ki-tools/app"
+	"github.com/KiFoundation/ki-tools/cmd/kid/cmd"
 	"github.com/stretchr/testify/require"
 )
 

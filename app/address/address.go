@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-const (
+var (
 	Bech32MainPrefix = "ki"
 
 	// PrefixAccount is the prefix for account keys

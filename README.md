@@ -69,4 +69,4 @@ kid version --long
 ```
 
 ## Disclaimer
-The `ki-tools` is a modified clone of the `kitools` project. More about the latter can be found [here](https://github.com/cosmos/kitools).
+The `ki-tools` is a modified clone of the `gaia` project. More about the latter can be found [here](https://github.com/cosmos/gaia).

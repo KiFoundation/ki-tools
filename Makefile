@@ -5,12 +5,15 @@ COMMIT := $(shell git log -1 --format='%H')
 
 # don't override user values
 ifeq (,$(VERSION))
-  VERSION := $(shell git describe --exact-match 2>/dev/null)
+  VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
   # if VERSION is empty, then populate it with branch's name and raw commit hash
   ifeq (,$(VERSION))
     VERSION := $(BRANCH)-$(COMMIT)
   endif
 endif
+
+NETWORK ?= "Mainnet"
+ADDRESS_PREFIX ?= "ki"
 
 PACKAGES_SIMTEST=$(shell go list ./... | grep '/simulation')
 LEDGER_ENABLED ?= true
@@ -59,14 +62,13 @@ comma := ,
 build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
-network := Mainnet-IBC
-
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=kitools \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=kid \
-		  -X github.com/cosmos/cosmos-sdk/version.Version=$(network)-$(VERSION) \
+		  -X github.com/cosmos/cosmos-sdk/version.Version=$(NETWORK)-$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
-			-X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION)
+		  -X github.com/tendermint/tendermint/version.TMCoreSemVer=$(TM_VERSION) \
+		  -X github.com/KiFoundation/ki-tools/app/address.Bech32MainPrefix=$(ADDRESS_PREFIX)
 
 ifeq (cleveldb,$(findstring cleveldb,$(KID_BUILD_OPTIONS)))
   ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
@@ -142,6 +144,13 @@ distclean: clean
 	rm -rf vendor/
 
 ###############################################################################
+###                                 Testnet                                 ###
+###############################################################################
+
+build-testnet: go.sum
+	NETWORK=Testnet ADDRESS_PREFIX=tki $(MAKE) build
+
+###############################################################################
 ###                                 Devdoc                                  ###
 ###############################################################################
 
@@ -199,3 +208,12 @@ format:
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs gofmt -w -s
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs misspell -w
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/cosmos/cosmos-sdk
+
+
+###############################################################################
+###                                Localnet                                 ###
+###############################################################################
+
+.PHONY: all build-linux install format lint \
+	go-mod-cache draw-deps clean build build-contract-tests-hooks \
+	test test-all test-build test-cover test-unit test-race benchmark
