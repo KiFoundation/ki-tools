@@ -1,4 +1,4 @@
-# Gaiad Testnet Tool
+# Kid Testnet Tool
 
 This python tool starts multiple kid instances on the same machine without virtualization, i.e., non-conflicting ports are used.
 
@@ -7,8 +7,8 @@ This tool aims to simplify testing of key Cosmos Hub operations, such as module 
 ## Features
 
 1. All ports automatically incremented by 10
-1. Gaiad nodes peer with all other nodes
-1. Gaiad nodes all started on one machine without conflict
+1. Kid nodes peer with all other nodes
+1. Kid nodes all started on one machine without conflict
 1. All nodes generate, propose, and vote on blocks
 1. Stopping app stops all instances
 1. Support specifying a pre-existing genesis file

@@ -2,7 +2,7 @@
 
 - name: Copy binary
   copy:
-    src: "{{GAIACLI_BINARY}}"
+    src: "{{KICLI_BINARY}}"
     dest: /usr/bin/kitoolscli
     mode: 0755
   notify: restart kitoolscli

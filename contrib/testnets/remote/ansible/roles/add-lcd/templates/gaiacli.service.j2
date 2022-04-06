@@ -8,7 +8,7 @@ Restart=on-failure
 User=kid
 Group=kid
 PermissionsStartOnly=true
-ExecStart=/usr/bin/kitoolscli rest-server --laddr {{GAIACLI_ADDRESS}}
+ExecStart=/usr/bin/kitoolscli rest-server --laddr {{KICLI_ADDRESS}}
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGTERM
 

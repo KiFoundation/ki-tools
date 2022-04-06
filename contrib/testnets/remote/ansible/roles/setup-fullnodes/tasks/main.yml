@@ -30,7 +30,7 @@
   become_user: kid
   register: initresult
   args:
-    creates: /home/kid/.kitools/config
+    creates: /home/kid/.kid/config
 
 - name: Get wallet word seed from result of initial transaction locally
   when: initresult["changed"]
@@ -48,14 +48,14 @@
 - name: Copy genesis file
   copy:
     src: "{{GENESISFILE}}"
-    dest: /home/kid/.kitools/config/genesis.json
+    dest: /home/kid/.kid/config/genesis.json
   become: yes
   become_user: kid
 
 - name: Copy config.toml file
   copy:
     src: "{{CONFIGFILE}}"
-    dest: /home/kid/.kitools/config/config.toml
+    dest: /home/kid/.kid/config/config.toml
   become: yes
   become_user: kid
 

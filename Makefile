@@ -12,8 +12,8 @@ ifeq (,$(VERSION))
   endif
 endif
 
-NETWORK ?= "Mainnet"
-ADDRESS_PREFIX ?= "ki"
+NETWORK ?= Mainnet
+ADDRESS_PREFIX ?= ki
 
 PACKAGES_SIMTEST=$(shell go list ./... | grep '/simulation')
 LEDGER_ENABLED ?= true
@@ -149,6 +149,7 @@ distclean: clean
 
 build-testnet: go.sum
 	NETWORK=Testnet ADDRESS_PREFIX=tki $(MAKE) build
+
 
 ###############################################################################
 ###                                 Devdoc                                  ###

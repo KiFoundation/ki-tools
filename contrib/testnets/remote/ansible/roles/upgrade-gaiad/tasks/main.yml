@@ -11,14 +11,14 @@
   when: "GENESISFILE is defined and GENESISFILE != ''" 
   copy:
     src: "{{GENESISFILE}}"
-    dest: /home/kid/.kitools/config/genesis.json
+    dest: /home/kid/.kid/config/genesis.json
   notify: restart kid
 
 - name: Download genesis.json URL, if available
   when: "GENESISURL is defined and GENESISURL != ''"
   get_url:
     url: "{{GENESISURL}}"
-    dest: /home/kid/.kitools/config/genesis.json
+    dest: /home/kid/.kid/config/genesis.json
     force: yes
   notify: restart kid
 

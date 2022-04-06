@@ -14,8 +14,7 @@
     - [Release Procedure](#release-procedure)
     - [Point Release Procedure](#point-release-procedure)
 
-Thank you for considering making contributions to Gaia and related
-repositories!
+Thank you for considering making contributions!
 
 Contributing to this repo can mean many things such as participating in
 discussion or proposing code changes. To ensure a smooth workflow for all
@@ -33,9 +32,6 @@ contributors, a general procedure for contributing has been established:
       to begin work
    4. Follow standard Github best practices: fork the repo, branch from the
       HEAD of `main`, make some commits, and submit a PR to `main`
-      - For core developers working within the Gaia repo, to ensure a clear
-      ownership of branches, branches must be named with the convention
-      `{moniker}/{issue#}-branch-name`
    5. Be sure to submit the PR in `Draft` mode. Submit your PR early, even if
       it's incomplete as this indicates to the community you're working on
       something and allows them to provide comments early in the development process
@@ -79,7 +75,7 @@ and a checklist of changes and tasks to be done.
 
 The issue can then be used to develop multiple well-scoped PRs that are easy to review.
 
-The following PR structuring checklist can be used when submitting changes to the Gaia repository for review:
+The following PR structuring checklist can be used when submitting changes to the repository for review:
 - [ ] Proto files: PR updating proto files. As a suggested next step, don't regenerate updated protobuf 
    implementations using `protgen`, since this will break existing code.   
 - [ ] Broken code: If `protogen` is run, a PR disabling broken code
@@ -106,38 +102,6 @@ All PRs require at least one review before merge (except docs changes, or variab
 - If you sat down with the PR submitter and did a pairing review please note that in the `Approval`, or your PR comments.
 - If you are only making "surface level" reviews, submit any notes as `Comments` without adding a review.
 
-### Updating Documentation
-
-If you open a PR in Gaia, it is mandatory to update the relevant documentation in /docs.
-
-- If your changes relate specifically to the kitools application, please modify the docs/ folder.
-
-## Forking
-
-Please note that Go requires code to live under absolute paths, which complicates forking.
-While my fork lives at `https://github.com/rigeyrigerige/kitools`,
-the code should never exist at  `$GOPATH/src/github.com/rigeyrigerige/kitools`.
-Instead, we use `git remote` to add the fork as a new remote for the original repo,
-`$GOPATH/src/github.com/cosmos/kitools`, and do all the work there.
-
-For instance, to create a fork and work on a branch of it, I would:
-
-- Create the fork on github, using the fork button.
-- Go to the original repo checked out locally (i.e. `$GOPATH/src/github.com/cosmos/kitools`)
-- `git remote rename origin upstream`
-- `git remote add origin git@github.com:rigeyrigerige/kitools.git`
-
-Now `origin` refers to my fork and `upstream` refers to the Gaia version.
-So I can `git push -u origin main` to update my fork, and make pull requests to Gaia from there.
-Of course, replace `rigeyrigerige` with your git handle.
-
-To pull in updates from the origin repo, run
-
-- `git fetch upstream`
-- `git rebase upstream/main` (or whatever branch you want)
-
-Please don't make Pull Requests to `main`.
-
 ## Dependencies
 
 We use [Go Modules](https://github.com/golang/go/wiki/Modules) to manage
@@ -147,7 +111,7 @@ The main branch of every Cosmos repository should just build with `go get`,
 which means they should be kept up-to-date with their dependencies so we can
 get away with telling people they can just `go get` our software.
 
-When dependencies in Gaia's `go.mod` are changed, it is generally accepted practice
+When dependencies in `go.mod` are changed, it is generally accepted practice
 to delete `go.sum` and then run `go mod tidy`.
 
 Since some dependencies are not under our control, a third party may break our
@@ -191,7 +155,7 @@ User-facing repos should adhere to the [trunk based development branching model]
 
 Libraries need not follow the model strictly, but would be wise to.
 
-Gaia utilizes [semantic versioning](https://semver.org/).
+We utilize [semantic versioning](https://semver.org/).
 
 ### PR Targeting
 

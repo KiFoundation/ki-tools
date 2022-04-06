@@ -23,11 +23,11 @@ fi
 ##
 ## Run binary with all parameters
 ##
-export GAIADHOME="/kid/node${ID}/kid"
+export KIDHOME="/kid/node${ID}/kid"
 
-if [ -d "$(dirname "${GAIADHOME}"/"${LOG}")" ]; then
-  "${BINARY}" --home "${GAIADHOME}" "$@" | tee "${GAIADHOME}/${LOG}"
+if [ -d "$(dirname "${KIDHOME}"/"${LOG}")" ]; then
+  "${BINARY}" --home "${KIDHOME}" "$@" | tee "${KIDHOME}/${LOG}"
 else
-  "${BINARY}" --home "${GAIADHOME}" "$@"
+  "${BINARY}" --home "${KIDHOME}" "$@"
 fi
 

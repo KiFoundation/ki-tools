@@ -41,10 +41,10 @@ host = '127.0.0.1'
 port = 3001
 
 [[chains]]
-id = '$GAIA_A_E2E_CHAIN_ID'
-rpc_addr = 'http://$GAIA_A_E2E_VAL_HOST:26657'
-grpc_addr = 'http://$GAIA_A_E2E_VAL_HOST:9090'
-websocket_addr = 'ws://$GAIA_A_E2E_VAL_HOST:26657/websocket'
+id = '$KICHAIN_A_E2E_CHAIN_ID'
+rpc_addr = 'http://$KICHAIN_A_E2E_VAL_HOST:26657'
+grpc_addr = 'http://$KICHAIN_A_E2E_VAL_HOST:9090'
+websocket_addr = 'ws://$KICHAIN_A_E2E_VAL_HOST:26657/websocket'
 rpc_timeout = '10s'
 account_prefix = 'cosmos'
 key_name = 'val01-kitools-a'
@@ -57,10 +57,10 @@ trusting_period = '14days'
 trust_threshold = { numerator = '1', denominator = '3' }
 
 [[chains]]
-id = '$GAIA_B_E2E_CHAIN_ID'
-rpc_addr = 'http://$GAIA_B_E2E_VAL_HOST:26657'
-grpc_addr = 'http://$GAIA_B_E2E_VAL_HOST:9090'
-websocket_addr = 'ws://$GAIA_B_E2E_VAL_HOST:26657/websocket'
+id = '$KICHAIN_B_E2E_CHAIN_ID'
+rpc_addr = 'http://$KICHAIN_B_E2E_VAL_HOST:26657'
+grpc_addr = 'http://$KICHAIN_B_E2E_VAL_HOST:9090'
+websocket_addr = 'ws://$KICHAIN_B_E2E_VAL_HOST:26657/websocket'
 rpc_timeout = '10s'
 account_prefix = 'cosmos'
 key_name = 'val01-kitools-b'
@@ -74,8 +74,8 @@ trust_threshold = { numerator = '1', denominator = '3' }
 EOF
 
 # import keys
-hermes keys restore ${GAIA_B_E2E_CHAIN_ID} -n "val01-kitools-b" -m "${GAIA_B_E2E_VAL_MNEMONIC}"
-hermes keys restore ${GAIA_A_E2E_CHAIN_ID} -n "val01-kitools-a" -m "${GAIA_A_E2E_VAL_MNEMONIC}"
+hermes keys restore ${KICHAIN_B_E2E_CHAIN_ID} -n "val01-kitools-b" -m "${KICHAIN_B_E2E_VAL_MNEMONIC}"
+hermes keys restore ${KICHAIN_A_E2E_CHAIN_ID} -n "val01-kitools-a" -m "${KICHAIN_A_E2E_VAL_MNEMONIC}"
 
 # start Hermes relayer
 hermes start

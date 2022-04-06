@@ -76,8 +76,8 @@ func (s *IntegrationTestSuite) SetupSuite() {
 
 	// The boostrapping phase is as follows:
 	//
-	// 1. Initialize Gaia validator nodes.
-	// 2. Create and initialize Gaia validator genesis files (both chains)
+	// 1. Initialize Kichain validator nodes.
+	// 2. Create and initialize Kichain validator genesis files (both chains)
 	// 3. Start both networks.
 	// 4. Create and run IBC relayer (Hermes) containers.
 
@@ -97,7 +97,7 @@ func (s *IntegrationTestSuite) SetupSuite() {
 }
 
 func (s *IntegrationTestSuite) TearDownSuite() {
-	if str := os.Getenv("GAIA_E2E_SKIP_CLEANUP"); len(str) > 0 {
+	if str := os.Getenv("KICHAIN_E2E_SKIP_CLEANUP"); len(str) > 0 {
 		skipCleanup, err := strconv.ParseBool(str)
 		s.Require().NoError(err)
 
@@ -263,7 +263,7 @@ func (s *IntegrationTestSuite) initValidatorConfigs(c *chain) {
 }
 
 func (s *IntegrationTestSuite) runValidators(c *chain, portOffset int) {
-	s.T().Logf("starting Gaia %s validator containers...", c.id)
+	s.T().Logf("starting Kichain %s validator containers...", c.id)
 
 	s.valResources[c.id] = make([]*dockertest.Resource, len(c.validators))
 	for i, val := range c.validators {
@@ -271,7 +271,7 @@ func (s *IntegrationTestSuite) runValidators(c *chain, portOffset int) {
 			Name:      val.instanceName(),
 			NetworkID: s.dkrNet.Network.ID,
 			Mounts: []string{
-				fmt.Sprintf("%s/:/root/.kitools", val.configDir()),
+				fmt.Sprintf("%s/:/root/.kid", val.configDir()),
 			},
 			Repository: "cosmos/kid-e2e",
 		}
@@ -296,7 +296,7 @@ func (s *IntegrationTestSuite) runValidators(c *chain, portOffset int) {
 		s.Require().NoError(err)
 
 		s.valResources[c.id][i] = resource
-		s.T().Logf("started Gaia %s validator container: %s", c.id, resource.Container.ID)
+		s.T().Logf("started Kichain %s validator container: %s", c.id, resource.Container.ID)
 	}
 
 	rpcClient, err := rpchttp.New("tcp://localhost:26657", "/websocket")
@@ -321,7 +321,7 @@ func (s *IntegrationTestSuite) runValidators(c *chain, portOffset int) {
 		},
 		5*time.Minute,
 		time.Second,
-		"Gaia node failed to produce blocks",
+		"Kichain node failed to produce blocks",
 	)
 }
 
@@ -356,12 +356,12 @@ func (s *IntegrationTestSuite) runIBCRelayer() {
 				"3031/tcp": {{HostIP: "", HostPort: "3031"}},
 			},
 			Env: []string{
-				fmt.Sprintf("GAIA_A_E2E_CHAIN_ID=%s", s.chainA.id),
-				fmt.Sprintf("GAIA_B_E2E_CHAIN_ID=%s", s.chainB.id),
-				fmt.Sprintf("GAIA_A_E2E_VAL_MNEMONIC=%s", kitoolsAVal.mnemonic),
-				fmt.Sprintf("GAIA_B_E2E_VAL_MNEMONIC=%s", kitoolsBVal.mnemonic),
-				fmt.Sprintf("GAIA_A_E2E_VAL_HOST=%s", s.valResources[s.chainA.id][0].Container.Name[1:]),
-				fmt.Sprintf("GAIA_B_E2E_VAL_HOST=%s", s.valResources[s.chainB.id][0].Container.Name[1:]),
+				fmt.Sprintf("KICHAIN_A_E2E_CHAIN_ID=%s", s.chainA.id),
+				fmt.Sprintf("KICHAIN_B_E2E_CHAIN_ID=%s", s.chainB.id),
+				fmt.Sprintf("KICHAIN_A_E2E_VAL_MNEMONIC=%s", kitoolsAVal.mnemonic),
+				fmt.Sprintf("KICHAIN_B_E2E_VAL_MNEMONIC=%s", kitoolsBVal.mnemonic),
+				fmt.Sprintf("KICHAIN_A_E2E_VAL_HOST=%s", s.valResources[s.chainA.id][0].Container.Name[1:]),
+				fmt.Sprintf("KICHAIN_B_E2E_VAL_HOST=%s", s.valResources[s.chainB.id][0].Container.Name[1:]),
 			},
 			Entrypoint: []string{
 				"sh",
@@ -409,7 +409,7 @@ func (s *IntegrationTestSuite) runIBCRelayer() {
 	// transport errors.
 	time.Sleep(10 * time.Second)
 
-	// create the client, connection and channel between the two Gaia chains
+	// create the client, connection and channel between the two chains
 	s.connectIBCChains()
 }
 

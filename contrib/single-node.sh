@@ -25,10 +25,10 @@ kid gentx validator 5000000000stake --keyring-backend="test" --chain-id $CHAINID
 kid collect-gentxs
 
 # Set proper defaults and change ports
-sed -i 's#"tcp://127.0.0.1:26657"#"tcp://0.0.0.0:26657"#g' ~/.kitools/config/config.toml
-sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' ~/.kitools/config/config.toml
-sed -i 's/timeout_propose = "3s"/timeout_propose = "1s"/g' ~/.kitools/config/config.toml
-sed -i 's/index_all_keys = false/index_all_keys = true/g' ~/.kitools/config/config.toml
+sed -i 's#"tcp://127.0.0.1:26657"#"tcp://0.0.0.0:26657"#g' ~/.kid/config/config.toml
+sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' ~/.kid/config/config.toml
+sed -i 's/timeout_propose = "3s"/timeout_propose = "1s"/g' ~/.kid/config/config.toml
+sed -i 's/index_all_keys = false/index_all_keys = true/g' ~/.kid/config/config.toml
 
 # Start the kitools
 kid start --pruning=nothing
