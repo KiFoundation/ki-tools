@@ -1,5 +1,6 @@
 package kitools
 
+/* #nosec */
 const (
 	appName     = "KitoolsApp"
 	upgradeName = "v7-theta"

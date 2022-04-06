@@ -172,11 +172,13 @@ func (app *KitoolsApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddr
 		counter++
 	}
 
-	iter.Close()
-
-	_, err := app.StakingKeeper.ApplyAndReturnValidatorSetUpdates(ctx)
+	err := iter.Close()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
+	}
+
+	if _, err := app.StakingKeeper.ApplyAndReturnValidatorSetUpdates(ctx); err != nil {
+		panic(err)
 	}
 
 	/* Handle slashing state. */
