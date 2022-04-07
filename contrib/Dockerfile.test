@@ -1,7 +1,7 @@
 # Simple usage with a mounted data directory:
 # > docker build -t kitools .
-# > docker run -it -p 46657:46657 -p 46656:46656 -v ~/.kitools:/root/.kitools kitools kid init
-# > docker run -it -p 46657:46657 -p 46656:46656 -v ~/.kitools:/root/.kitools kitools kid start
+# > docker run -it -p 46657:46657 -p 46656:46656 -v ~/.kid:/root/.kid kitools kid init
+# > docker run -it -p 46657:46657 -p 46656:46656 -v ~/.kid:/root/.kid kitools kid start
 FROM golang:1.17-alpine AS build-env
 
 # Set up dependencies

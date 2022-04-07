@@ -30,7 +30,7 @@
   become: yes
   become_user: kid
   args:
-    creates: /home/kid/.kitools/config/gentx
+    creates: /home/kid/.kid/config/gentx
 
 - name: Get wallet word seed from result of initial transaction locally
   when: gentxresult["changed"]
@@ -46,7 +46,7 @@
   connection: local
 
 - name: Find gentx file
-  command: "ls /home/kid/.kitools/config/gentx"
+  command: "ls /home/kid/.kid/config/gentx"
   changed_when: false
   register: gentxfile
 
@@ -58,7 +58,7 @@
 - name: Get gen-tx file
   fetch:
     dest: files/
-    src: "/home/kid/.kitools/config/gentx/{{gentxfile.stdout_lines[0]}}"
+    src: "/home/kid/.kid/config/gentx/{{gentxfile.stdout_lines[0]}}"
     flat: yes
 
 - name: Compress gathered gen-tx files locally
@@ -67,12 +67,12 @@
   connection: local
 
 - name: Unpack gen-tx archive
-  unarchive: src=files/gen-tx.tgz dest=/home/kid/.kitools/config/gentx owner=kid
+  unarchive: src=files/gen-tx.tgz dest=/home/kid/.kid/config/gentx owner=kid
 
 - name: Generate genesis.json
   command: "/usr/bin/kid init --with-txs --name=node{{nodeid.stdout_lines[0]}} --chain-id={{TESTNET_NAME}}"
   become: yes
   become_user: kid
   args:
-    creates: /home/kid/.kitools/config/genesis.json
+    creates: /home/kid/.kid/config/genesis.json
 

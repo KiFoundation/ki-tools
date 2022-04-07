@@ -12,8 +12,8 @@ ifeq (,$(VERSION))
   endif
 endif
 
-NETWORK ?= "Mainnet"
-ADDRESS_PREFIX ?= "ki"
+NETWORK ?= Mainnet
+ADDRESS_PREFIX ?= ki
 
 PACKAGES_SIMTEST=$(shell go list ./... | grep '/simulation')
 LEDGER_ENABLED ?= true
@@ -150,6 +150,7 @@ distclean: clean
 build-testnet: go.sum
 	NETWORK=Testnet ADDRESS_PREFIX=tki $(MAKE) build
 
+
 ###############################################################################
 ###                                 Devdoc                                  ###
 ###############################################################################
@@ -184,17 +185,22 @@ test: test-unit test-build
 test-all: check test-race test-cover
 
 test-unit:
-	@VERSION=$(VERSION) go test -mod=readonly -tags='ledger test_ledger_mock' ./...
+	@VERSION=$(VERSION) go test -mod=readonly -tags='ledger test_ledger_mock norace' ./...
 
 test-race:
 	@VERSION=$(VERSION) go test -mod=readonly -race -tags='ledger test_ledger_mock' ./...
 
 test-cover:
-	@go test -mod=readonly -timeout 30m -race -coverprofile=coverage.txt -covermode=atomic -tags='ledger test_ledger_mock' ./...
+	@go test -mod=readonly -timeout 30m -coverprofile=coverage.txt -covermode=atomic -tags='ledger test_ledger_mock' ./...
+
+test-e2e:
+	@VERSION=$(VERSION) go test -mod=readonly -timeout=25m -v ./tests/e2e
 
 benchmark:
 	@go test -mod=readonly -bench=. ./...
 
+docker-build-debug:
+	@docker build -t cosmos/kid-e2e --build-arg IMG_TAG=debug -f e2e.Dockerfile .
 
 ###############################################################################
 ###                                Linting                                  ###

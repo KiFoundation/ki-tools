@@ -104,8 +104,8 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	kitoolsappparams "github.com/KiFoundation/ki-tools/app/params"
 	"github.com/KiFoundation/ki-tools/app/address"
+	kitoolsappparams "github.com/KiFoundation/ki-tools/app/params"
 
 	"github.com/strangelove-ventures/packet-forward-middleware/v2/router"
 	routerkeeper "github.com/strangelove-ventures/packet-forward-middleware/v2/router/keeper"

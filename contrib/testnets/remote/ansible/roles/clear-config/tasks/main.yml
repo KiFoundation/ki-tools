@@ -6,4 +6,4 @@
   file: "path={{item}} state=absent"
   with_items:
     - /usr/bin/kid
-    - /home/kid/.kitools
+    - /home/kid/.kid
