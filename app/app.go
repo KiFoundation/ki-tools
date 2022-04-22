@@ -676,7 +676,6 @@ func NewKitoolsApp(
 			// IBC v2
 			ctx.Logger().Info("start to migrate IBC...")
 			app.IBCKeeper.ConnectionKeeper.SetParams(ctx, ibcconnectiontypes.DefaultParams())
-			ctx.Logger().Info("IBC v2 OK")
 
 			// Run migration and fix vesting accounts
 			ctx.Logger().Info("start to run module migrations...")
