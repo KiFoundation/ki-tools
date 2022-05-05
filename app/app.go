@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -708,6 +709,35 @@ func NewKitoolsApp(
 			params := app.WasmKeeper.GetParams(ctx)
 			params.CodeUploadAccess = wasmtypes.AllowNobody
 			app.WasmKeeper.SetParams(ctx, params)
+
+			// Update max gas and max bytes params
+			blockParams := []byte("BlockParams")
+			s, ok := app.ParamsKeeper.GetSubspace(baseapp.Paramspace)
+			if ok {
+				erra := s.Update(ctx, blockParams, []byte(`{"max_bytes": "26214401", "max_gas": "75000000"}`))
+				if erra != nil {
+					panic(fmt.Sprintf("You did stupid stuff %s", erra))
+				}
+			}
+
+			// Update governance deposit and voting params
+			var (
+				MinDepositTokens = sdk.NewInt(100000000000) // 100K TODO: set the real value here
+			)
+
+			const (
+				DepositPeriod time.Duration = time.Hour * 24 * 4 // 4 days TODO: set the real value here
+				VotingPeriod  time.Duration = time.Hour * 24 * 4 // 4 days TODO: set the real value here
+			)
+
+			govParams := app.GovKeeper.GetVotingParams(ctx)
+			govParams.VotingPeriod = VotingPeriod
+			app.GovKeeper.SetVotingParams(ctx, govParams)
+
+			govDepositParams := app.GovKeeper.GetDepositParams(ctx)
+			govDepositParams.MinDeposit = sdk.NewCoins(sdk.NewCoin(govDepositParams.MinDeposit[0].Denom, MinDepositTokens)) // TODO: Works because we have only one deposit Token.
+			govDepositParams.MaxDepositPeriod = DepositPeriod
+			app.GovKeeper.SetDepositParams(ctx, govDepositParams)
 
 			return newVM, err
 		},
