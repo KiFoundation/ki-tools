@@ -708,23 +708,19 @@ func NewKitoolsApp(
 			app.WasmKeeper.SetParams(ctx, params)
 
 			// Update max gas and max bytes params
-			blockParams := []byte("BlockParams")
-			s, ok := app.ParamsKeeper.GetSubspace(baseapp.Paramspace)
-			if ok {
-				erra := s.Update(ctx, blockParams, []byte(`{"max_bytes": "26214401", "max_gas": "75000000"}`))
-				if erra != nil {
-					panic(fmt.Sprintf("You did stupid stuff %s", erra))
-				}
-			}
+			consensusParams := app.BaseApp.GetConsensusParams(ctx)
+			consensusParams.Block.MaxGas = 75_000_000
+
+			app.BaseApp.StoreConsensusParams(ctx, consensusParams)
 
 			// Update governance deposit and voting params
 			var (
-				MinDepositTokens = sdk.NewInt(100000000000) // 100K TODO: set the real value here
+				MinDepositTokens = sdk.NewInt(500_000_000_000) // 500K
 			)
 
 			const (
-				DepositPeriod time.Duration = time.Hour * 24 * 4 // 4 days TODO: set the real value here
-				VotingPeriod  time.Duration = time.Hour * 24 * 4 // 4 days TODO: set the real value here
+				DepositPeriod time.Duration = time.Hour * 24 * 7 // 7 days
+				VotingPeriod  time.Duration = time.Hour * 24 * 3 // 3 days
 			)
 
 			govParams := app.GovKeeper.GetVotingParams(ctx)
