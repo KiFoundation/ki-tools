@@ -2,7 +2,7 @@ ARG IMG_TAG=latest
 ARG PLATFORM="linux/amd64"
 
 # Compile the kid binary
-FROM --platform=${PLATFORM} golang:1.17-alpine3.15 AS kid-builder
+FROM --platform=${PLATFORM} golang:1.17.10-alpine3.15 AS kid-builder
 WORKDIR /src/app/
 COPY go.mod go.sum* ./
 RUN go mod download
