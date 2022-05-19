@@ -22,7 +22,8 @@ RUN apk add --no-cache $PACKAGES
 RUN set -eux; apk add --no-cache ca-certificates build-base;
 
 ARG BUILD_TARGET_PREFIX=""
-RUN BUILD_TAGS=muslc LINK_STATICALLY=true make build$BUILD_TARGET_PREFIX
+ARG VERSION=""
+RUN BUILD_TAGS=muslc LINK_STATICALLY=true LDFLAGS=-buildid=$VERSION make build$BUILD_TARGET_PREFIX
 
 # Add to a distroless container
 ARG PLATFORM="linux/amd64"
