@@ -109,13 +109,17 @@ $(BUILD_TARGETS): go.sum $(BUILDDIR)/
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)/
 
-build-reproducible:
+build-reproducible-all: build-reproducible-amd64 build-reproducible-arm64
+
+build-reproducible-amd64:
 	ARCH=x86_64 PLATFORM=linux/amd64 $(MAKE) build-reproducible-generic
+
+build-reproducible-arm64:
 	ARCH=aarch64 PLATFORM=linux/arm64 $(MAKE) build-reproducible-generic
 	
 build-reproducible-generic: go.sum
 	$(DOCKER) rm $(subst /,-,latest-build-$(PLATFORM)) || true
-	$(DOCKER) build -t latest-build-$(PLATFORM) \
+	DOCKER_BUILDKIT=1 $(DOCKER) build -t latest-build-$(PLATFORM) \
 		--build-arg ARCH=$(ARCH) \
 		--build-arg PLATFORM=$(PLATFORM) \
 		--build-arg BUILD_TARGET_PREFIX="$(BUILD_TARGET_PREFIX)" \
@@ -154,8 +158,12 @@ distclean: clean
 ###                                 Testnet                                 ###
 ###############################################################################
 
-build-testnet-reproducible: go.sum
+build-testnet-reproducible-all: build-testnet-reproducible-amd64 build-testnet-reproducible-arm64
+
+build-testnet-reproducible-amd64:
 	ARCH=x86_64 PLATFORM=linux/amd64 NETWORK=Testnet ADDRESS_PREFIX=tki BUILD_TARGET_PREFIX="-testnet" $(MAKE) build-reproducible-generic
+
+build-testnet-reproducible-arm64:
 	ARCH=aarch64 PLATFORM=linux/arm64 NETWORK=Testnet ADDRESS_PREFIX=tki BUILD_TARGET_PREFIX="-testnet" $(MAKE) build-reproducible-generic
 
 build-testnet: go.sum
