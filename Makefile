@@ -123,6 +123,7 @@ build-reproducible-generic: go.sum
 		--build-arg ARCH=$(ARCH) \
 		--build-arg PLATFORM=$(PLATFORM) \
 		--build-arg BUILD_TARGET_PREFIX="$(BUILD_TARGET_PREFIX)" \
+		--build-arg VERSION="$(VERSION)" \
 		-f Dockerfile .
 	$(DOCKER) create -ti --name $(subst /,-,latest-build-$(PLATFORM)) latest-build-$(PLATFORM) kid
 	mkdir -p $(CURDIR)/build/$(NETWORK)/$(PLATFORM)/
