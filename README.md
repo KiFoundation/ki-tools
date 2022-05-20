@@ -88,12 +88,12 @@ You can also build a static testnet binary as explained in the following section
 
 #### **Why building static binaries ?**
 
-Static binaries hermetically contain libraries that they are using. Dynamic binaries rely on libraries located elsewhere on the system, the binary only containing the adress of the library.
+Static binaries hermetically contain libraries that they are using. Dynamic binaries rely on libraries located elsewhere on the system, the binary only containing the address of the library.
 There are multiple pro and cons of **static vs dynamic**.
 
 For `kid`, we provide a set a tool to build static binaries, as we want to ensure that:
 
-* Binaries and dependencies are consistent accross the validation set.
+* Binaries and dependencies are consistent accross the validators set.
 * Build result is reproducible and can be verified by every user.
 
 Using static, verified, binaries ensures that all nodes mainteners are running the same version of dependencies, the `cosmwasm` particulary.
