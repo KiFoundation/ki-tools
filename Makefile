@@ -109,16 +109,25 @@ $(BUILD_TARGETS): go.sum $(BUILDDIR)/
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)/
 
-build-reproducible: go.sum
-	$(DOCKER) rm latest-build || true
-	$(DOCKER) run --volume=$(CURDIR):/sources:ro \
-        --env TARGET_PLATFORMS='linux/amd64 darwin/amd64 linux/arm64 windows/amd64' \
-        --env APP=kid \
-        --env VERSION=$(VERSION) \
-        --env COMMIT=$(COMMIT) \
-        --env LEDGER_ENABLED=$(LEDGER_ENABLED) \
-        --name latest-build cosmossdk/rbuilder:latest
-	$(DOCKER) cp -a latest-build:/home/builder/artifacts/ $(CURDIR)/
+build-reproducible-all: build-reproducible-amd64 build-reproducible-arm64
+
+build-reproducible-amd64:
+	ARCH=x86_64 PLATFORM=linux/amd64 $(MAKE) build-reproducible-generic
+
+build-reproducible-arm64:
+	ARCH=aarch64 PLATFORM=linux/arm64 $(MAKE) build-reproducible-generic
+	
+build-reproducible-generic: go.sum
+	$(DOCKER) rm $(subst /,-,latest-build-$(PLATFORM)) || true
+	DOCKER_BUILDKIT=1 $(DOCKER) build -t latest-build-$(PLATFORM) \
+		--build-arg ARCH=$(ARCH) \
+		--build-arg PLATFORM=$(PLATFORM) \
+		--build-arg BUILD_TARGET_PREFIX="$(BUILD_TARGET_PREFIX)" \
+		--build-arg VERSION="$(VERSION)" \
+		-f Dockerfile .
+	$(DOCKER) create -ti --name $(subst /,-,latest-build-$(PLATFORM)) latest-build-$(PLATFORM) kid
+	mkdir -p $(CURDIR)/build/$(NETWORK)/$(PLATFORM)/
+	$(DOCKER) cp -a $(subst /,-,latest-build-$(PLATFORM)):/usr/local/bin/kid $(CURDIR)/build/$(NETWORK)/$(PLATFORM)/kid
 
 build-linux: go.sum
 	LEDGER_ENABLED=false GOOS=linux GOARCH=amd64 $(MAKE) build
@@ -150,9 +159,16 @@ distclean: clean
 ###                                 Testnet                                 ###
 ###############################################################################
 
+build-testnet-reproducible-all: build-testnet-reproducible-amd64 build-testnet-reproducible-arm64
+
+build-testnet-reproducible-amd64:
+	ARCH=x86_64 PLATFORM=linux/amd64 NETWORK=Testnet ADDRESS_PREFIX=tki BUILD_TARGET_PREFIX="-testnet" $(MAKE) build-reproducible-generic
+
+build-testnet-reproducible-arm64:
+	ARCH=aarch64 PLATFORM=linux/arm64 NETWORK=Testnet ADDRESS_PREFIX=tki BUILD_TARGET_PREFIX="-testnet" $(MAKE) build-reproducible-generic
+
 build-testnet: go.sum
 	NETWORK=Testnet ADDRESS_PREFIX=tki $(MAKE) build
-
 
 ###############################################################################
 ###                                 Devdoc                                  ###
@@ -203,7 +219,7 @@ benchmark:
 	@go test -mod=readonly -bench=. ./...
 
 docker-build-debug:
-	@docker build -t cosmos/kid-e2e --build-arg IMG_TAG=debug -f e2e.Dockerfile .
+	@docker build -t cosmos/kid-e2e --build-arg IMG_TAG=debug -f Dockerfile .
 
 ###############################################################################
 ###                                Linting                                  ###
