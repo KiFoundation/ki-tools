@@ -705,13 +705,13 @@ func NewKitoolsApp(
 			ctx.Logger().Info("start to setup Wasm...")
 			params := app.WasmKeeper.GetParams(ctx)
 
-			UploadAddress := "ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4"
+			uploadAddress := "ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4"
 
 			if address.Bech32MainPrefix == "tki" {
-				UploadAddress = "tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj"
+				uploadAddress = "tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj"
 			}
 
-			params.CodeUploadAccess = wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeOnlyAddress, Address: UploadAddress}
+			params.CodeUploadAccess = wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeOnlyAddress, Address: uploadAddress}
 
 			app.WasmKeeper.SetParams(ctx, params)
 
