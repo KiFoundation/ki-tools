@@ -704,7 +704,15 @@ func NewKitoolsApp(
 			// Add CosmWasm
 			ctx.Logger().Info("start to setup Wasm...")
 			params := app.WasmKeeper.GetParams(ctx)
-			params.CodeUploadAccess = wasmtypes.AllowNobody
+
+			UploadAddress := "ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4"
+
+			if address.Bech32MainPrefix == "tki" {
+				UploadAddress = "tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj"
+			}
+
+			params.CodeUploadAccess = wasmtypes.AccessConfig{Permission: wasmtypes.AccessTypeOnlyAddress, Address: UploadAddress}
+
 			app.WasmKeeper.SetParams(ctx, params)
 
 			// Update max gas and max bytes params
