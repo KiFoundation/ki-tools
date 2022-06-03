@@ -132,14 +132,14 @@ Build an `amd64` static binary
 
 ```bash
 make build-reproducible-amd64           # For mainnet
-make build-reproducible-testnet-amd64   # For testnet
+make build-testnet-reproducible-amd64   # For testnet
 ```
 
 Build an `arm64` static binary
 
 ```bash
 make build-reproducible-arm64           # For mainnet
-make build-reproducible-testnet-arm64   # For testnet
+make build-testnet-reproducible-arm64   # For testnet
 ```
 
 **Note:** arm64 compatiblity is proposed but not guaranteed. We recommend users to run on amd64 platforms.
