@@ -4,8 +4,7 @@ go 1.17
 
 require (
 	github.com/CosmWasm/wasmd v0.26.0
-	github.com/CosmWasm/wasmvm v1.0.0-beta10
-	github.com/cosmos/cosmos-sdk v0.45.3
+	github.com/cosmos/cosmos-sdk v0.45.5
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/ibc-go/v2 v2.2.0
 	github.com/gorilla/mux v1.8.0
@@ -25,6 +24,7 @@ require (
 	github.com/99designs/keyring v1.1.6 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d // indirect
+	github.com/CosmWasm/wasmvm v1.0.0-beta10 // indirect
 	github.com/DataDog/zstd v1.4.5 // indirect
 	github.com/Microsoft/go-winio v0.5.1 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
