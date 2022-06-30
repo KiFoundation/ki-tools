@@ -3,5 +3,5 @@ package kitools
 /* #nosec */
 const (
 	appName     = "KitoolsApp"
-	upgradeName = "v3"
+	upgradeName = "v4"
 )
