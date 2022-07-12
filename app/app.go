@@ -721,7 +721,7 @@ func NewKitoolsApp(
 					govMsgVoteWeighted,
 					govMsgSubmitProposal,
 					govMsgDeposit,
-					govMsgVote,	
+					govMsgVote,
 					stakingMsgEditValidator,
 					stakingMsgDelegate,
 					stakingMsgUndelegate,
