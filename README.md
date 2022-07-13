@@ -13,8 +13,8 @@ This repository hosts `kid`, the implementation of the kichain protocol, based o
 To install Go, visit the Go download page and copy the link of the latest Go release for Linux systems, download and unzip the archive file as follows:
 
 ```bash
-wget https://dl.google.com/go/go1.17.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.17.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
 ```
 
 Finally, export the Go paths like so:
@@ -35,7 +35,7 @@ go version
 This should output :
 
 ```bash
-go version go1.17 linux/amd64
+go version go1.18 linux/amd64
 ```
 
 ### Build kid (linux)
