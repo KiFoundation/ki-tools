@@ -25,7 +25,6 @@ func NewDefaultGenesisState() GenesisState {
 		Params: wasmtypes.Params{
 			CodeUploadAccess:             wasmtypes.AllowNobody,
 			InstantiateDefaultPermission: wasmtypes.AccessTypeEverybody,
-			MaxWasmCodeSize:              wasmtypes.DefaultMaxWasmCodeSize,
 		},
 	}
 	genesis[wasm.ModuleName] = encCfg.Marshaler.MustMarshalJSON(&wasmGen)
