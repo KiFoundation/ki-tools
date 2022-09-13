@@ -182,6 +182,7 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		wasm.AppModuleBasic{},
+		ica.AppModuleBasic{},
 	)
 
 	// module account permissions

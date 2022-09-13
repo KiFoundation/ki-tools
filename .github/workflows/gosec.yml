@@ -1,7 +1,10 @@
 name: Run Gosec
 on:
-  push:
   pull_request:
+    branches:
+      - 2.0.x
+      - 3.0.x
+      - 4.0.x
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -13,4 +16,4 @@ jobs:
       - name: Run Gosec Security Scanner
         uses: informalsystems/gosec@master
         with:
-          args: -exclude-dir=tests ./...
+          args: -exclude-dir=tests -exclude-dir=cmd ./...
