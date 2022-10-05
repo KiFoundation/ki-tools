@@ -56,6 +56,9 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		Use:   "kid",
 		Short: "KiChain App",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
+			cmd.SetOut(cmd.OutOrStdout())
+			cmd.SetErr(cmd.ErrOrStderr())
+
 			initClientCtx, err := client.ReadPersistentCommandFlags(initClientCtx, cmd.Flags())
 			if err != nil {
 				return err
