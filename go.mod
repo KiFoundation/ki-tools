@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/CosmWasm/wasmd v0.28.0
-	github.com/CosmWasm/wasmvm v1.0.0
 	github.com/cosmos/cosmos-sdk v0.45.9
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/ibc-go/v3 v3.0.1
@@ -25,6 +24,7 @@ require (
 	github.com/99designs/keyring v1.1.6 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d // indirect
+	github.com/CosmWasm/wasmvm v1.0.0 // indirect
 	github.com/DataDog/zstd v1.4.5 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
@@ -147,7 +147,11 @@ require (
 )
 
 replace (
+	github.com/CosmWasm/wasmd => github.com/KiFoundation/wasmd v0.28.1-0.20221227085305-0c226bb53899
 	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
+	github.com/cosmos/cosmos-sdk => github.com/KiFoundation/cosmos-sdk v0.45.10-0.20221227075229-c10de63bb4e0
+	github.com/cosmos/ibc-go/v3 => github.com/KiFoundation/ibc-go/v3 v3.0.0-rc2.0.20221227081238-a13e516509d2
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
+	github.com/tendermint/tendermint => github.com/KiFoundation/tendermint v0.34.22-0.20221227073904-fe42bc5caa52
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
 )
