@@ -6,7 +6,7 @@ require (
 	github.com/CosmWasm/wasmd v0.29.2
 	github.com/cosmos/cosmos-sdk v0.45.11
 	github.com/cosmos/go-bip39 v1.0.0
-	github.com/cosmos/ibc-go/v3 v3.3.0
+	github.com/cosmos/ibc-go/v3 v3.3.1
 	github.com/gorilla/mux v1.8.0
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/prometheus/client_golang v1.13.0
