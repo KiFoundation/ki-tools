@@ -783,7 +783,7 @@ func (app *KitoolsApp) Name() string { return app.BaseApp.Name() }
 // BeginBlocker application updates every begin block
 func (app *KitoolsApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 
-	if ctx.BlockHeight() <= 13519356 {
+	if ctx.BlockHeight() >= 13519355 && ctx.BlockHeight() <= 13519356 {
 		distrParams := app.DistrKeeper.GetParams(ctx)
 		ctx.Logger().Info(fmt.Sprintf("Current DistrKeeper Params: %v", distrParams))
 		distrParams.CommunityTax = sdk.NewDecWithPrec(4, 2)
