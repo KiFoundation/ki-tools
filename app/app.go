@@ -782,6 +782,9 @@ func (app *KitoolsApp) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker application updates every begin block
 func (app *KitoolsApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+	distrParams := app.DistrKeeper.GetParams(ctx)
+	distrParams.CommunityTax = sdk.NewDecWithPrec(4, 2) // 1%
+	app.DistrKeeper.SetParams(ctx, distrParams)
 	return app.mm.BeginBlock(ctx, req)
 }
 
