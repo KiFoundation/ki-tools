@@ -105,7 +105,6 @@ import (
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
 
 	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
-	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
 	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
 	icahostkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/keeper"
 	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
@@ -697,46 +696,6 @@ func NewKitoolsApp(
 	app.UpgradeKeeper.SetUpgradeHandler(
 		upgradeName,
 		func(ctx sdk.Context, _ upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
-
-			ctx.Logger().Info("Initialize ICA")
-			fromVM[icatypes.ModuleName] = icaModule.ConsensusVersion()
-
-			// create ICS27 Controller submodule params
-			controllerParams := icacontrollertypes.Params{}
-
-			// create ICS27 Host submodule params
-			hostParams := icahosttypes.Params{
-				HostEnabled: true,
-				AllowMessages: []string{
-					authzMsgExec,
-					authzMsgGrant,
-					authzMsgRevoke,
-					bankMsgSend,
-					bankMsgMultiSend,
-					distrMsgSetWithdrawAddr,
-					distrMsgWithdrawValidatorCommission,
-					distrMsgFundCommunityPool,
-					distrMsgWithdrawDelegatorReward,
-					feegrantMsgGrantAllowance,
-					feegrantMsgRevokeAllowance,
-					govMsgVoteWeighted,
-					govMsgSubmitProposal,
-					govMsgDeposit,
-					govMsgVote,
-					stakingMsgEditValidator,
-					stakingMsgDelegate,
-					stakingMsgUndelegate,
-					stakingMsgBeginRedelegate,
-					stakingMsgCreateValidator,
-					vestingMsgCreateVestingAccount,
-					transferMsgTransfer,
-					wasmMsgExecuteContract,
-				},
-			}
-
-			// initialize ICS27 module
-			icaModule.InitModule(ctx, controllerParams, hostParams)
-
 			ctx.Logger().Info("start to run module migrations...")
 
 			return app.mm.RunMigrations(ctx, app.configurator, fromVM)
@@ -749,9 +708,7 @@ func NewKitoolsApp(
 	}
 
 	if upgradeInfo.Name == upgradeName && !app.UpgradeKeeper.IsSkipHeight(upgradeInfo.Height) {
-		storeUpgrades := store.StoreUpgrades{
-			Added: []string{icahosttypes.StoreKey},
-		}
+		storeUpgrades := store.StoreUpgrades{}
 
 		// configure store loader that checks if version == upgradeHeight and applies store upgrades
 		app.SetStoreLoader(upgradetypes.UpgradeStoreLoader(upgradeInfo.Height, &storeUpgrades))
