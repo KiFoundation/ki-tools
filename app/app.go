@@ -103,6 +103,7 @@ import (
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
 	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
 	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
@@ -697,6 +698,21 @@ func NewKitoolsApp(
 		upgradeName,
 		func(ctx sdk.Context, _ upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
 			ctx.Logger().Info("start to run module migrations...")
+
+			params := app.WasmKeeper.GetParams(ctx)
+
+			uploadAddresses := []string{"ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4", ""}
+
+			if address.Bech32MainPrefix == "tki" {
+				uploadAddresses = []string{"tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj", ""}
+			}
+
+			params.CodeUploadAccess = wasmtypes.AccessConfig{
+				Permission: wasmtypes.AccessTypeAnyOfAddresses,
+				Addresses:  uploadAddresses,
+			}
+
+			app.WasmKeeper.SetParams(ctx, params)
 
 			return app.mm.RunMigrations(ctx, app.configurator, fromVM)
 		},
