@@ -701,10 +701,10 @@ func NewKitoolsApp(
 
 			params := app.WasmKeeper.GetParams(ctx)
 
-			uploadAddresses := []string{"ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4", ""}
+			uploadAddresses := []string{"ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4", "ki12qmzh8ewtp90qxtsrvrgl52qydauerhkl8f6u2"}
 
 			if address.Bech32MainPrefix == "tki" {
-				uploadAddresses = []string{"tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj", ""}
+				uploadAddresses = []string{"tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj", "tki1mxag493xqx5rwqug950n0uer3kayjnw3ctxpxu"}
 			}
 
 			params.CodeUploadAccess = wasmtypes.AccessConfig{
