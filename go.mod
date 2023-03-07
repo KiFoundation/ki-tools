@@ -1,6 +1,6 @@
 module github.com/KiFoundation/ki-tools
 
-go 1.18
+go 1.19
 
 require (
 	github.com/CosmWasm/wasmd v0.29.2
@@ -37,7 +37,7 @@ require (
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/coinbase/rosetta-sdk-go v0.7.0 // indirect
-	github.com/confio/ics23/go v0.7.0 // indirect
+	github.com/confio/ics23/go v0.9.0 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/cosmos/btcutil v1.0.4 // indirect
 	github.com/cosmos/cosmos-proto v1.0.0-alpha7 // indirect
@@ -131,12 +131,12 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/zondax/hid v0.9.0 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
-	golang.org/x/crypto v0.1.0 // indirect
+	golang.org/x/crypto v0.2.0 // indirect
 	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e // indirect
 	golang.org/x/mod v0.6.0 // indirect
-	golang.org/x/net v0.1.0 // indirect
-	golang.org/x/sys v0.1.0 // indirect
-	golang.org/x/term v0.1.0 // indirect
+	golang.org/x/net v0.2.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
+	golang.org/x/term v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
 	google.golang.org/genproto v0.0.0-20221014213838-99cd37c6964a // indirect
@@ -149,7 +149,6 @@ require (
 )
 
 replace (
-	github.com/confio/ics23/go => github.com/cosmos/cosmos-sdk/ics23/go v0.8.0
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
 )
