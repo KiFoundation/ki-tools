@@ -207,7 +207,7 @@ var (
 // KitoolsApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
-type KitoolsApp struct { // nolint: golint
+type KitoolsApp struct { //nolint: golint
 	*baseapp.BaseApp
 	legacyAmino       *codec.LegacyAmino
 	appCodec          codec.Codec
