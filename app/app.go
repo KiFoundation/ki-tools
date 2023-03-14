@@ -103,9 +103,9 @@ import (
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
 	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
-	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
 	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
 	icahostkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/keeper"
 	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
@@ -207,7 +207,7 @@ var (
 // KitoolsApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
-type KitoolsApp struct { // nolint: golint
+type KitoolsApp struct { //nolint: golint
 	*baseapp.BaseApp
 	legacyAmino       *codec.LegacyAmino
 	appCodec          codec.Codec
@@ -697,47 +697,22 @@ func NewKitoolsApp(
 	app.UpgradeKeeper.SetUpgradeHandler(
 		upgradeName,
 		func(ctx sdk.Context, _ upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
+			ctx.Logger().Info("start to run module migrations...")
 
-			ctx.Logger().Info("Initialize ICA")
-			fromVM[icatypes.ModuleName] = icaModule.ConsensusVersion()
+			params := app.WasmKeeper.GetParams(ctx)
 
-			// create ICS27 Controller submodule params
-			controllerParams := icacontrollertypes.Params{}
+			uploadAddresses := []string{"ki12u4jtcczpg2m3nt50muh3srte7zed77qsfyng4", "ki12qmzh8ewtp90qxtsrvrgl52qydauerhkl8f6u2"}
 
-			// create ICS27 Host submodule params
-			hostParams := icahosttypes.Params{
-				HostEnabled: true,
-				AllowMessages: []string{
-					authzMsgExec,
-					authzMsgGrant,
-					authzMsgRevoke,
-					bankMsgSend,
-					bankMsgMultiSend,
-					distrMsgSetWithdrawAddr,
-					distrMsgWithdrawValidatorCommission,
-					distrMsgFundCommunityPool,
-					distrMsgWithdrawDelegatorReward,
-					feegrantMsgGrantAllowance,
-					feegrantMsgRevokeAllowance,
-					govMsgVoteWeighted,
-					govMsgSubmitProposal,
-					govMsgDeposit,
-					govMsgVote,
-					stakingMsgEditValidator,
-					stakingMsgDelegate,
-					stakingMsgUndelegate,
-					stakingMsgBeginRedelegate,
-					stakingMsgCreateValidator,
-					vestingMsgCreateVestingAccount,
-					transferMsgTransfer,
-					wasmMsgExecuteContract,
-				},
+			if address.Bech32MainPrefix == "tki" {
+				uploadAddresses = []string{"tki1vexd57shjr2rax74ym5g8nqwq7ve04n5gz0kaj", "tki1mxag493xqx5rwqug950n0uer3kayjnw3ctxpxu"}
 			}
 
-			// initialize ICS27 module
-			icaModule.InitModule(ctx, controllerParams, hostParams)
+			params.CodeUploadAccess = wasmtypes.AccessConfig{
+				Permission: wasmtypes.AccessTypeAnyOfAddresses,
+				Addresses:  uploadAddresses,
+			}
 
-			ctx.Logger().Info("start to run module migrations...")
+			app.WasmKeeper.SetParams(ctx, params)
 
 			return app.mm.RunMigrations(ctx, app.configurator, fromVM)
 		},
@@ -749,9 +724,7 @@ func NewKitoolsApp(
 	}
 
 	if upgradeInfo.Name == upgradeName && !app.UpgradeKeeper.IsSkipHeight(upgradeInfo.Height) {
-		storeUpgrades := store.StoreUpgrades{
-			Added: []string{icahosttypes.StoreKey},
-		}
+		storeUpgrades := store.StoreUpgrades{}
 
 		// configure store loader that checks if version == upgradeHeight and applies store upgrades
 		app.SetStoreLoader(upgradetypes.UpgradeStoreLoader(upgradeInfo.Height, &storeUpgrades))
