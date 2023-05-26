@@ -68,8 +68,8 @@ github.com/CosmWasm/wasmvm v1.1.2/go.mod h1:ei0xpvomwSdONsxDuONzV7bL1jSET1M8brEx
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/DataDog/zstd v1.4.1/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
 github.com/DataDog/zstd v1.4.5/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
-github.com/KiFoundation/ibc-go/v3 v3.3.1-ki-alpha h1:7Bl3yg/8h9p+ivUaGhNCe9s4DNmtsP2oDZyHITouxhU=
-github.com/KiFoundation/ibc-go/v3 v3.3.1-ki-alpha/go.mod h1:V1nliDk/5q5KWr0mup7M76oN4SY0IOU371SKbCV2wN0=
+github.com/KiFoundation/ibc-go/v3 v3.3.1-ki h1:rW9KarzVzb0dul+1+cTfrAuf3CyDGhKonvmbgma84pE=
+github.com/KiFoundation/ibc-go/v3 v3.3.1-ki/go.mod h1:V1nliDk/5q5KWr0mup7M76oN4SY0IOU371SKbCV2wN0=
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/Microsoft/go-winio v0.5.1/go.mod h1:JPGBdM1cNvN/6ISo+n8V5iA4v8pBzdOpzfwIujj1a84=
 github.com/Microsoft/go-winio v0.6.0 h1:slsWYD/zyx7lCXoZVlvQrj0hPTM1HI4+v1sIda2yDvg=
