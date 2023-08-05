@@ -1,0 +1,35 @@
+name: "Release"
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Copy Binary
+        run: |
+          make build-reproducible-all
+          make build-testnet-reproducible-all
+
+      - name: Draft Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            kid_mainnet_linux_amd64
+            kid_mainnet_linux_arm64
+            kid_testnet_linux_amd64
+            kid_testnet_linux_arm64
+            kid_sha256.txt

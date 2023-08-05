@@ -133,8 +133,8 @@ build-reproducible-generic: go.sum
 		--build-arg VERSION="$(VERSION)" \
 		-f Dockerfile .
 	$(DOCKER) create -ti --name $(subst /,-,latest-build-$(PLATFORM)) latest-build-$(PLATFORM) kid
-	mkdir -p $(CURDIR)/build/$(NETWORK)/$(PLATFORM)/
-	$(DOCKER) cp -a $(subst /,-,latest-build-$(PLATFORM)):/usr/local/bin/kid $(CURDIR)/build/$(NETWORK)/$(PLATFORM)/kid
+	$(DOCKER) cp -a $(subst /,-,latest-build-$(PLATFORM)):/usr/local/bin/kid "$(CURDIR)/kid_$(shell echo '$(NETWORK)' | tr '[:upper:]' '[:lower:]')_$(subst /,_,$(PLATFORM))"
+	sha256sum kid_$(shell echo '$(NETWORK)' | tr '[:upper:]' '[:lower:]')_$(subst /,_,$(PLATFORM)) >> ./kid_sha256.txt
 
 build-linux: go.sum
 	LEDGER_ENABLED=false GOOS=linux GOARCH=amd64 $(MAKE) build
